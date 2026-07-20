@@ -1,0 +1,6 @@
+[Plymouth Theme]
+Name=Lyys Theme
+Description=
+ModuleName=script
+PluginPath=/usr/share/plymouth/themes/lyys-plymouthd-themes/lyys-plymouthd-themes.script
+DisplayName=Lyys Theme

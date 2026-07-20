@@ -1,41 +1,7 @@
-screen.w = Window.GetWidth();
-screen.h = Window.GetHeight();
+Window.SetBackgroundTopColor(1, 0, 0);
+Window.SetBackgroundBottomColor(0, 0, 1);
 
-Window.SetBackgroundTopColor(0.08, 0.08, 0.16);
-Window.SetBackgroundBottomColor(0.0, 0.0, 0.0);
-
-title = Image.Text("Loading...", 1, 1, 1, 1, "Sans 18", "center");
-title_sprite = Sprite(title);
-title_sprite.SetPosition(screen.w / 2 - title.GetWidth() / 2, screen.h / 2 - 30, 0);
-
-bar_str = "[          ]";
-bar_img = Image.Text(bar_str, 0, 1, 0, 1, "Monospace 14", "center");
-bar_sprite = Sprite(bar_img);
-bar_sprite.SetPosition(screen.w / 2 - bar_img.GetWidth() / 2, screen.h / 2 + 10, 0);
-
-function update_bar(progress) {
-    filled = Int(progress * 10);
-    empty = 10 - filled;
-    str = "[";
-    i = 0;
-    while (i < filled) {
-        str = str + "#";
-        i++;
-    }
-    i = 0;
-    while (i < empty) {
-        str = str + " ";
-        i++;
-    }
-    str = str + "]";
-    bar_img = Image.Text(str, 0, 1, 0, 1, "Monospace 14", "center");
-    bar_sprite.SetImage(bar_img);
-    bar_sprite.SetPosition(screen.w / 2 - bar_img.GetWidth() / 2, screen.h / 2 + 10, 0);
-}
-
-function refresh_callback(time, status) {
+fun refresh_callback(time, status) {
 }
 
 Plymouth.SetRefreshFunction(refresh_callback);
-
-Plymouth.SetBootProgressFunction(update_bar);

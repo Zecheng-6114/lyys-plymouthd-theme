@@ -1,8 +1,9 @@
 [Plymouth Theme]
 Name=Lyys Theme
-Description=A simple theme with background image and progress bar
+Description=A simple theme with text progress bar
 ModuleName=script
 
 [script]
 ImageDir=/usr/share/plymouth/themes/lyys-plymouthd-themes
 ScriptFile=/usr/share/plymouth/themes/lyys-plymouthd-themes/lyys-plymouthd-themes.script
+MonospaceFont=/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf

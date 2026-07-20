@@ -1,6 +1,5 @@
 [Plymouth Theme]
 Name=Lyys Theme
-Description=
+Description=A simple theme with background image and progress bar
 ModuleName=script
 PluginPath=/usr/share/plymouth/themes/lyys-plymouthd-themes/lyys-plymouthd-themes.script
-DisplayName=Lyys Theme

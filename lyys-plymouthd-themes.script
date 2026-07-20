@@ -1,19 +1,20 @@
-Window.SetBackgroundTopColor(0.2, 0.2, 0.2);
-Window.SetBackgroundBottomColor(0.1, 0.1, 0.1);
-
-my_image = Image("background.png");
-my_image.SetOpacity(1.0);
-sprite = Sprite(my_image);
-sprite.SetX(Window.GetX() + (Window.GetWidth() / 2 - my_image.GetWidth() / 2));
-sprite.SetY(Window.GetY() + (Window.GetHeight() / 2 - my_image.GetHeight() / 2));
-
-progress_bar_image = Image("progress-bar.png");
-progress_bar_sprite = Sprite(progress_bar_image);
-progress_bar_sprite.SetX(Window.GetX() + (Window.GetWidth() / 2 - progress_bar_image.GetWidth() / 2));
-progress_bar_sprite.SetY(Window.GetY() + Window.GetHeight() * 0.75);
-
-fun refresh_callback() {
-    progress_bar_sprite.SetOpacity(Plymouth.GetProgress());
+# 获取显示设备尺寸
+display_width = PlymouthDisplay.GetWidth();
+display_height = PlymouthDisplay.GetHeight();
+ 
+# 创建窗口（覆盖整个屏幕）
+window = PlymouthWindow.New();
+window.SetSize(display_width, display_height);
+ 
+# 加载背景图片
+background = PlymouthImage.New("background.png");
+background.SetPosition(0, 0);  # 左上角对齐
+window.AddChild(background);
+ 
+# 定义进度条更新函数
+function update_progress(progress) {
+    progress_bar.SetProgress(progress);  # 更新进度条值（0.0~1.0）
 }
-
-Plymouth.SetRefreshFunction(refresh_callback);
+ 
+# 注册事件回调
+PlymouthDisplay.Connect("progress-changed", update_progress);

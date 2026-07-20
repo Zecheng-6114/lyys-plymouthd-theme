@@ -1,28 +1,30 @@
-# 文本进度条示例（my-first-theme.script）
-display = PlymouthDisplay.GetDisplay();
-window = PlymouthWindow.New();
-window.SetSize(display.GetWidth(), display.GetHeight());
- 
-# 创建文本标签（显示"Loading..."）
-text = PlymouthText.New("Loading...");
-text.SetFont("DejaVuSans.ttf", 24);  # 字体需系统存在，或指定绝对路径
-text.SetColor(1.0, 1.0, 1.0);  # 白色（RGB值0~1）
-text.SetPosition(display.GetWidth()/2 - 60, display.GetHeight()/2);  # 居中
-window.AddChild(text);
- 
-# 文本进度条（用"####"表示进度）
-progress_text = PlymouthText.New("");
-progress_text.SetFont("DejaVuSans.ttf", 20);
-progress_text.SetColor(0.0, 1.0, 0.0);  # 绿色
-progress_text.SetPosition(display.GetWidth()/2 - 100, display.GetHeight()/2 + 40);
-window.AddChild(progress_text);
- 
-function update_progress(progress) {
-    # 生成进度字符串（如"####      "，共10个字符）
-    filled = int(progress * 10);
-    empty = 10 - filled;
-    progress_str = "[" + strrep("#", filled) + strrep(" ", empty) + "]";
-    progress_text.SetText(progress_str);
+screen.w = Window.GetWidth();
+screen.h = Window.GetHeight();
+
+Window.SetBackgroundTopColor(0.1, 0.1, 0.1);
+Window.SetBackgroundBottomColor(0.0, 0.0, 0.0);
+
+logo = Image("logo.png");
+logo_sprite = Sprite(logo);
+logo_sprite.SetPosition(screen.w / 2 - logo.GetWidth() / 2, screen.h / 2 - logo.GetHeight() / 2 - 40);
+
+progress_bar = Image("progress-bar.png");
+progress_sprite = Sprite(progress_bar);
+bar_x = screen.w / 2 - 200;
+bar_y = screen.h * 0.75;
+progress_sprite.SetPosition(bar_x, bar_y, 0);
+
+function refresh_callback(time, status) {
 }
- 
-display.Connect("progress-changed", update_progress);
+
+Plymouth.SetRefreshFunction(refresh_callback);
+
+function progress_callback(percent_done) {
+    new_width = percent_done * 400;
+    progress_sprite.SetX(bar_x);
+    progress_bar = Image("progress-bar.png");
+    cropped = progress_bar.Scale(new_width, progress_bar.GetHeight());
+    progress_sprite.SetImage(cropped);
+}
+
+Plymouth.RegisterProgressWatcher(progress_callback);

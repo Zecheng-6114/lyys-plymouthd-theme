@@ -2,4 +2,7 @@
 Name=Lyys Theme
 Description=A simple theme with background image and progress bar
 ModuleName=script
-PluginPath=/usr/share/plymouth/themes/lyys-plymouthd-themes/lyys-plymouthd-themes.script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/lyys-plymouthd-themes
+ScriptFile=/usr/share/plymouth/themes/lyys-plymouthd-themes/lyys-plymouthd-themes.script

@@ -1,20 +1,28 @@
-# 获取显示设备尺寸
-display_width = PlymouthDisplay.GetWidth();
-display_height = PlymouthDisplay.GetHeight();
- 
-# 创建窗口（覆盖整个屏幕）
+# 文本进度条示例（my-first-theme.script）
+display = PlymouthDisplay.GetDisplay();
 window = PlymouthWindow.New();
-window.SetSize(display_width, display_height);
+window.SetSize(display.GetWidth(), display.GetHeight());
  
-# 加载背景图片
-background = PlymouthImage.New("background.png");
-background.SetPosition(0, 0);  # 左上角对齐
-window.AddChild(background);
+# 创建文本标签（显示"Loading..."）
+text = PlymouthText.New("Loading...");
+text.SetFont("DejaVuSans.ttf", 24);  # 字体需系统存在，或指定绝对路径
+text.SetColor(1.0, 1.0, 1.0);  # 白色（RGB值0~1）
+text.SetPosition(display.GetWidth()/2 - 60, display.GetHeight()/2);  # 居中
+window.AddChild(text);
  
-# 定义进度条更新函数
+# 文本进度条（用"####"表示进度）
+progress_text = PlymouthText.New("");
+progress_text.SetFont("DejaVuSans.ttf", 20);
+progress_text.SetColor(0.0, 1.0, 0.0);  # 绿色
+progress_text.SetPosition(display.GetWidth()/2 - 100, display.GetHeight()/2 + 40);
+window.AddChild(progress_text);
+ 
 function update_progress(progress) {
-    progress_bar.SetProgress(progress);  # 更新进度条值（0.0~1.0）
+    # 生成进度字符串（如"####      "，共10个字符）
+    filled = int(progress * 10);
+    empty = 10 - filled;
+    progress_str = "[" + strrep("#", filled) + strrep(" ", empty) + "]";
+    progress_text.SetText(progress_str);
 }
  
-# 注册事件回调
-PlymouthDisplay.Connect("progress-changed", update_progress);
+display.Connect("progress-changed", update_progress);
